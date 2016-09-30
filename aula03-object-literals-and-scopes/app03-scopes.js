@@ -1,5 +1,4 @@
 function foo() {
-    console.log(y) // > undefined
     for(var x = 0; x < 5; x++){
         var y = "ola"
         console.log(x)
@@ -13,7 +12,6 @@ function foo() {
 
 function bar() {
     "use strict"
-    // console.log(x) // ERRO variable x is not defined
     let y
     for(let x = 0; x < 5; x++){
         y = "ola"
@@ -27,5 +25,6 @@ function bar() {
 }
 
 foo()
-bar()
+// bar()
 console.log(z)  // aceder à variável z global
+// console.log(y)  // ERRO variável y local à função foo()
