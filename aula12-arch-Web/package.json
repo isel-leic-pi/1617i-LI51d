@@ -1,0 +1,14 @@
+{
+  "name": "aula12-arch-web",
+  "version": "1.0.0",
+  "description": "Demo using a TCP and HTTP server",
+  "main": "app10-time-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "strftime": "^0.9.2"
+  }
+}
