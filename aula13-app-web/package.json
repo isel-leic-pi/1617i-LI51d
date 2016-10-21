@@ -1,0 +1,14 @@
+{
+  "name": "aula13-app-web",
+  "version": "1.0.0",
+  "description": "Demo of a simple Web application",
+  "main": "app14-web-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sprintf": "^0.1.5"
+  }
+}

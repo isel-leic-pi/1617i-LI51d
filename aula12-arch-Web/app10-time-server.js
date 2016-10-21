@@ -10,7 +10,7 @@ const server = net.createServer(socket => {
     const dt = strftime('%F %R', new Date())
     socket.write(dt)
     socket.write('\n')
-    // socket.end()
+    // socket.end() // // Termina a ligação
 })
 
 server.listen(port)

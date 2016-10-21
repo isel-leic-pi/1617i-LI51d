@@ -6,28 +6,35 @@ const port = process.argv[2]
 
 const http = require('http')
 const url = require('url')
+const sprintf = require('sprintf')
 
 const handlers = {}
+
+const parseTimeView = '' +
+'<html>' +
+    '<ul>' + 
+        '<li>hour: %s</li>' + 
+        '<li>minute: %s</li>' + 
+        '<li>seconds:%s </li>' + 
+    '</ul>' + 
+'</html>';
+
+const unixTimeView = '' +
+'<html>' +
+    '<h1>Unixtime</h1>' + 
+    '<h3>%s</h3>'
+'</html>';
+
+
 handlers.parsetime = function() {
+    // <=> String.Format do .Net ou Java
     const dt = new Date()
-    const time = {
-        "hour": dt.getHours(),
-        "minute": dt.getMinutes(),
-        "second": dt.getSeconds()
-    }
-    return JSON.stringify(time)
+    return sprintf(parseTimeView, dt.getHours(),dt.getMinutes(),dt.getSeconds())
 }
 
 handlers.unixtime = function() {
     const dt = new Date()
-    const time = {
-        "unixtime": dt.getTime()
-    }
-    return JSON.stringify(time)
-}
-
-handlers.ola = function() {
-    return 'Helo World'
+    return sprintf(unixTimeView, dt.getTime())
 }
 
 const server = http.createServer((req, resp) => {
@@ -35,7 +42,7 @@ const server = http.createServer((req, resp) => {
         const parts = urlInfo.pathname.split('/')
         const endPoint = parts[parts.length -1]
         if(handlers.hasOwnProperty(endPoint)) {
-            resp.writeHead(200, { 'Content-Type': 'application/json' })
+            resp.writeHead(200, { 'Content-Type': 'text/html' })
             const content = handlers[endPoint]()
             resp.write(content)
         } else {
