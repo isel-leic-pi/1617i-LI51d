@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+        <title>Parse Time</title>
+	</head>
+    <body>
+        <h2>Date</h2>
+            %s-%s-%s
+        <h2>Time</h2>
+        <ul>  
+             <li>hour: %s</li>  
+             <li>minute: %s</li>  
+             <li>seconds:%s </li>  
+        </ul>  
+    </body>
+</html> 
