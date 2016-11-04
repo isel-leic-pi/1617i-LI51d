@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+        <title>My First Page</title>
+        <style>
+            html {
+                font-size: 12px;
+            }
+            p {
+                color: blue;
+            }
+            h1 {
+                background-color: gray;
+            }
+            h1, h2 {
+                display: inline-block;
+                /*
+                border-color: red;
+                border-width: 10px;
+                border-style:dashed;
+                */
+                border: 10px dashed red;
+                padding: 10px;
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+            a {
+                background-color: orange;
+                display: block;
+            }
+            /*
+            #listHobbies, #listMovies{
+                font: bold 16px verdana;
+            }
+            */
+            .listingHeader {
+                font: bold 16px verdana;
+            }
+        </style>
+	</head>
+    <body>
+        <h1>A minha primeira página HTML</h1>
+        <h2>Descrição de temas alheios</h2>
+        <p>Exemplo de utilização de alguns elementos</p>
+        <p>
+            Aqui vamos colocar um link para uma pagina 
+            <a href="http://desporto.sapo.pt" target="_blank">Informação de Desporto</a>
+            e outro link
+            <a href="https://adeetc.thothapp.com/classes/PI/1617i/LI51D/info" target="_blank">
+                UC de Programação na Internet
+            </a>
+        </p>
+        <p>Listagem de um conjunto de desportos interessantes</p>
+        <p>Nadar, correr, etc</p>
+        <p id="listHobbies" class="listingHeader">Outros hobbies alem de desporto</p>
+        <p>Viajar e dar a volta ao mundo</p>
+        <p id="listMovies" class="listingHeader">Filmes marcantes do cinema</p>
+        <ul>
+            <li>Trainspoting</li>
+            <li>Qq coisa..</li>
+            <li>A caixa</li>
+        </ul>
+        <p class="listingHeader">Praias de Portugal fantásticas</p>
+    </body>	
+</html>
