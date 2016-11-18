@@ -3,11 +3,10 @@
 module.exports = function() {
     const mws = []
     const pipe = function(req, resp) {
-        mws[0](req, resp)
-
-        // TPC: Percorrer todos os Middlewares do Pipeline
-        // Chama o proximo apenas se: resp.finished == false
-        // Se resp.finished == true termina o pipeline
+        for(let i = 0; i < mws.length ;i++){
+        	if(resp.finished != true)
+        		mws[i](req,resp)
+        }
     }
     pipe.use = function(mw) {
         mws.push(mw)
