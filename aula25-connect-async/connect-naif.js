@@ -3,14 +3,13 @@
 module.exports = function() {
     const mws = []
     const pipe = function(req, resp) {
-        /* "Array.prototype.some
-         * some() is pretty much the same as forEach but it
-         * breaks when the callback returns true." 
-         **/
-        mws.some( middleware => {
-            middleware(req, resp)
-            return resp.finished
-        })
+        let i = 0
+        function next() {
+            if(i >= mws.length-1 || resp.finished) return
+            mws[++i](req, resp, next)
+        }
+        mws[i](req, resp, next)
+
     }
     pipe.use = function(mw) {
         mws.push(mw)

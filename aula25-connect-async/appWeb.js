@@ -5,12 +5,13 @@ const connect = require('./connect-naif.js')
 const pipe = connect()
 const PORT = 3000
 
-function mw1(req, resp) {
+function mw1(req, resp, next) {
     console.log("Request received")
+    next()
     // Pass to next MW
 }
 
-function mw2(req, resp) {
+function mw2(req, resp, next) {
     console.log("I am MW2")
     resp.end()
 }

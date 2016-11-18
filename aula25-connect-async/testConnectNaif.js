@@ -9,33 +9,23 @@ module.exports.testEndFirstMiddlewares = function testEndFirstMiddlewares(test){
     const pipe = connect()
     const resp = new Resp()
 
-    let mw1Ran = false;
     function mw1(req, resp) {
-        mw1Ran = true
+        test.ok(true)
         resp.end()
     }
-
-    let mw2Ran = false;
     function mw2(req, resp) {
-        mw2Ran = true
+        test.ok(false)
     }
-
-    let mw3Ran = false;
     function mw3(req, resp) {
-        mw3Ran = true
+        test.ok(false)
     }
-
     pipe.use(mw1)
     pipe.use(mw2)
     pipe.use(mw3)
 
+    test.expect(2)
     pipe(null,resp)
-
-    test.expect(4)
     test.ok(resp.finished)
-    test.ok(mw1Ran)
-    test.ok(!mw2Ran)
-    test.ok(!mw3Ran)
     test.done()
 }
 
@@ -44,8 +34,9 @@ module.exports.testEndSecondMiddlewares = function testEndSecondMiddlewares(test
     const resp = new Resp()
 
     let mw1Ran = false;
-    function mw1(req, resp) {
+    function mw1(req, resp, next) {
         mw1Ran = true
+        next()
     }
 
     let mw2Ran = false;
@@ -78,13 +69,15 @@ module.exports.testLastFirstMiddlewares = function testLastFirstMiddlewares(test
     const resp = new Resp()
 
     let mw1Ran = false;
-    function mw1(req, resp) {
+    function mw1(req, resp, next) {
         mw1Ran = true
+        next()
     }
 
     let mw2Ran = false;
-    function mw2(req, resp) {
+    function mw2(req, resp, next) {
         mw2Ran = true
+        next()
     }
 
     let mw3Ran = false;
