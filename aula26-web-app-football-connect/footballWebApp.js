@@ -14,6 +14,17 @@ const server = connect() // Init pipeline
 server.use(favicon(__dirname + '/public/luma.ico'));
 server.use(ecstatic({root: __dirname + '/public' }));
 server.use(footballController)
+
+server.use((err, req, resp, next) => {
+    resp.writeHead(500)
+    resp.write(err.message)
+    resp.end() // Termina a ligação
+})
+
+server.use((req, resp) => {
+    resp.writeHead(404)
+    resp.end() // Termina a ligação
+})
 /*
  * Run server
  */
