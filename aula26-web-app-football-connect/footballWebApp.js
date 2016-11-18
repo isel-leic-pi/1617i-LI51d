@@ -5,21 +5,16 @@ const fs = require('fs')
 const connect = require('connect')
 const url = require('url')
 const footballController = require('./controller/footballController.js')
+var ecstatic = require('ecstatic');
 
 const server = connect()
+
+server.use(ecstatic({root: __dirname + '/public' }));
+
 server.use((req, resp) => {
         const urlInfo = url.parse(req.url, true)
         const parts = urlInfo.pathname.split('/')
         const endPoint = parts[parts.length -1]
-        /**
-         * Check if this HTTP request asks for a static resource
-         * or a domain resource.
-         */
-        if(urlInfo.pathname.indexOf('.css') >= 0) {             
-            resp.writeHead(200, { 'Content-Type': 'text/css' })
-            fs.createReadStream('./public/' + urlInfo.pathname).pipe(resp)
-            return
-        }
 
         if(footballController.hasOwnProperty(endPoint))
         {    
