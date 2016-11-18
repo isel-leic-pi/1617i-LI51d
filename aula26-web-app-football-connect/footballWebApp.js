@@ -2,12 +2,12 @@
 
 const port = process.argv[2] | 3000
 const fs = require('fs')
-const http = require('http')
+const connect = require('connect')
 const url = require('url')
 const footballController = require('./controller/footballController.js')
 
-
-const server = http.createServer((req, resp) => {
+const server = connect()
+server.use((req, resp) => {
         const urlInfo = url.parse(req.url, true)
         const parts = urlInfo.pathname.split('/')
         const endPoint = parts[parts.length -1]
@@ -26,6 +26,7 @@ const server = http.createServer((req, resp) => {
             footballController[endPoint](urlInfo.query, (err, content) => {
                 if(err) {
                     resp.writeHead(500)
+                    resp.write(err)
                 }
                 else{
                     resp.writeHead(200, { 'Content-Type': 'text/html' })
