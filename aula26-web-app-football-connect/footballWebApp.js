@@ -5,10 +5,12 @@ const fs = require('fs')
 const connect = require('connect')
 const url = require('url')
 const footballController = require('./controller/footballController.js')
-var ecstatic = require('ecstatic');
+const ecstatic = require('ecstatic')
+const favicon = require('serve-favicon')
 
 const server = connect()
 
+server.use(favicon(__dirname + '/public/luma.ico'));
 server.use(ecstatic({root: __dirname + '/public' }));
 
 server.use((req, resp) => {
