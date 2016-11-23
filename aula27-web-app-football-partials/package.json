@@ -1,0 +1,19 @@
+{
+  "name": "footballWebApp",
+  "version": "1.0.0",
+  "description": "Time Web application",
+  "main": "footballWebApp.js",
+  "scripts": {
+    "start": "node footballWebApp.js",
+    "test": "nodeunit tests\\testFootballService.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.5.0",
+    "ecstatic": "^2.1.0",
+    "handlebars": "^4.0.5",
+    "serve-favicon": "^2.3.2",
+    "sprintf": "^0.1.5"
+  }
+}
