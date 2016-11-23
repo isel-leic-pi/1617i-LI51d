@@ -16,6 +16,9 @@ function FootballService(httpGetAsJson) {
         })
     }
     
+    /**
+     * cb (err, arr) => void -- receives an array of League objects
+     */
     this.getLeagues = function(cb) {
         const path = fotballUri
         httpGetAsJson(path, (err, arr) => {

@@ -7,7 +7,10 @@ const footService = new FootballService(httpGetAsJson)
 const url = require('url')
 
 const handlebars = require('handlebars')
-handlebars.registerPartial('favourites', fs.readFileSync('./views/partialFavourites.hbs').toString())
+handlebars.registerPartial(
+    'favourites', 
+    fs.readFileSync('./views/partialFavourites.hbs').toString()
+)
 const viewLeagueTable = handlebars.compile(fs.readFileSync('./views/leagueTable.hbs').toString())
 const viewLeagues = handlebars.compile(fs.readFileSync('./views/leagues.hbs').toString())
 
@@ -29,6 +32,7 @@ handlers.leagueTable = function(query, cb) {
     const id = query.id
     footService.getLeagueTable(id, (err, league) => {
         if(err) return cb(err)
+        league = addDummyTeams(league)
         cb(null, viewLeagueTable(league))
     })    
 }
@@ -36,7 +40,9 @@ handlers.leagueTable = function(query, cb) {
 handlers.leagues = function(query, cb) {
     footService.getLeagues((err, leagues) => {
         if(err) return cb(err)
-        cb(null, viewLeagues(leaguesWithLinks(leagues)))
+        leagues = leaguesWithLinks(leagues)
+        leagues = addDummyTeams(leagues)
+        cb(null, viewLeagues(leagues))
     })    
 }
 
@@ -46,4 +52,15 @@ function leaguesWithLinks(leagues) {
         return item 
     })
 }
+
+function addDummyTeams(obj){
+    obj.user = {
+        teams: [ 
+            {name: "Premier League"},
+            {name: "Liga NOS"}  
+        ]
+    }
+    return obj
+}
+
 module.exports = handlers
