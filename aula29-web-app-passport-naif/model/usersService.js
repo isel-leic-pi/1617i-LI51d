@@ -6,7 +6,13 @@
 const dbUsers = require('./usersDb.js')
 
 module.exports = {
-    authenticate: authenticate
+    'find': find,
+    'authenticate': authenticate
+}
+
+function find(username, cb) {
+    const user = dbUsers.find(item => item.username == username)
+    cb(null, user)
 }
 
 function authenticate(username, passwd, cb) {
