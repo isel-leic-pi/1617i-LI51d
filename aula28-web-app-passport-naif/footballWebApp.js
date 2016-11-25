@@ -2,7 +2,7 @@
 
 const port = process.argv[2] | 3000
 const fs = require('fs')
-const connect = require('connect')
+const connect = require('express')
 const footballController = require('./controller/footballController.js')
 const ecstatic = require('ecstatic')
 const favicon = require('serve-favicon')
