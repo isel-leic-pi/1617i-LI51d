@@ -32,6 +32,7 @@ passport.serializeUser((user, cb) => {
  * Add Middlewares
  */
 server.use(favicon(__dirname + '/public/luma.ico'));
+server.get('/', (req, res) => res.redirect('/leagues'))
 server.use(ecstatic({root: __dirname + '/public' }));
 server.use(cookieParser())
 server.use(bodyParser())
