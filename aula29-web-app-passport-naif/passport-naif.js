@@ -6,7 +6,8 @@ module.exports = {
     'initialize': initialize,
     'authenticate':authenticate,
     'use': use,
-    'deserializeUser': deserializeUser
+    'deserializeUser': deserializeUser,
+    'serializeUser': serializeUser
 }
 
 /**
@@ -20,6 +21,12 @@ let strategy
  * 
  */
 let deserializeHandler
+/**
+ * A function that converts a User into a User Id
+ * 
+ */
+let serializeHandler
+
 
 /**
  * Passport API
@@ -32,18 +39,25 @@ function deserializeUser(func) {
     deserializeHandler = func
 }
 
+function serializeUser(func) {
+    serializeHandler = func
+}
+
 function initialize(){
     return (req, res, next) => {
         if(req.cookies && req.cookies[SESSION_USER]) {
-            const username = req.cookies[SESSION_USER]
+            const userId = req.cookies[SESSION_USER]
             /**
              * const user = JSON.parse(jsonUser)
              */
-            deserializeHandler(username, (err, user) => {
+            deserializeHandler(userId, (err, user) => {
                 req.user = user
+                next()
             })
         }
-        next()
+        else
+            next()
+        
     }
 }
 
@@ -54,11 +68,13 @@ function authenticate(){
             /**
              * 1. Gravar User ID num cookie 
              */
-            res.cookie(SESSION_USER, user.username)
-            /**
-             * 2. Redireccionar para a raíz da Aplicaçao 
-             */
-            res.redirect(302, '/')
+            serializeHandler(user, (err, userId) => {
+                res.cookie(SESSION_USER, userId)
+                /**
+                 * 2. Redireccionar para a raíz da Aplicaçao 
+                 */
+                res.redirect(302, '/')
+            })
         })       
     }
 }
