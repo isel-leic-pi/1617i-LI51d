@@ -21,6 +21,10 @@ passport.use({
             cb)
     }
 })
+passport.deserializeUser((userId, cb) => {
+    usersService.find(userId, cb)
+})
+
 /*
  * Add Middlewares
  */
