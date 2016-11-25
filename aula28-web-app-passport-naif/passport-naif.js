@@ -1,6 +1,7 @@
 'use strict';
 
 const usersService = require('./model/usersService.js')
+const SESSION_USER = 'SESSION_USER'
 
 module.exports = {
     'initialize': initialize,
@@ -9,7 +10,12 @@ module.exports = {
 
 function initialize(){
     return (req, res, next) => {
-
+        if(req.cookies && req.cookies[SESSION_USER]) {
+            const jsonUser = req.cookies[SESSION_USER]
+            const user = JSON.parse(jsonUser)
+            req.user = user
+        }
+        next()
     }
 }
 
@@ -20,7 +26,7 @@ function authenticate(){
             /**
              * 1. Gravar User num cookie 
              */
-            res.cookie('SESSION_USER', JSON.stringify(user))
+            res.cookie(SESSION_USER, JSON.stringify(user))
             /**
              * 2. Redireccionar para a raíz da Aplicaçao 
              */
