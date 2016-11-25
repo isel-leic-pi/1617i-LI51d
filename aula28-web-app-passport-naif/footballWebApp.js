@@ -6,6 +6,7 @@ const connect = require('connect')
 const footballController = require('./controller/footballController.js')
 const ecstatic = require('ecstatic')
 const favicon = require('serve-favicon')
+const bodyParser = require('body-parser')
 
 const server = connect() // Init pipeline
 /*
@@ -14,6 +15,7 @@ const server = connect() // Init pipeline
 server.use(favicon(__dirname + '/public/luma.ico'));
 server.use(ecstatic({root: __dirname + '/public' }));
 server.use(footballController)
+server.use(bodyParser())
 
 server.use((err, req, resp, next) => {
     resp.writeHead(500)
