@@ -13,6 +13,7 @@ function initialize(){
 
 function authenticate(){
     return (req, res, next) => {
-        
+        console.log(req.query.username + ' ' + req.query.password)
+        res.send('User autenticado: ' + req.query.username + ' ' + req.query.password);
     }
 }
