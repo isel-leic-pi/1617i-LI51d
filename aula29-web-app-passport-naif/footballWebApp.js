@@ -9,8 +9,18 @@ const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const passport = require('./passport-naif.js')
+const usersService = require('./model/usersService.js')
 
 const server = connect() // Init pipeline
+passport.use({
+    name: 'local',
+    authenticate: (req, cb) => {
+        usersService.authenticate(
+            req.query.username, 
+            req.query.password,
+            cb)
+    }
+})
 /*
  * Add Middlewares
  */

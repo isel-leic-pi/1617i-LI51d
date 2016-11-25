@@ -1,11 +1,22 @@
 'use strict';
 
-const usersService = require('./model/usersService.js')
 const SESSION_USER = 'SESSION_USER'
 
 module.exports = {
     'initialize': initialize,
-    'authenticate':authenticate
+    'authenticate':authenticate,
+    'use': use
+}
+
+/**
+ * Strategy object with properties:
+ * - name -- stringify
+ * - autenticate -- method: (req, cb) -> void
+ */
+let strategy
+
+function use(strat) {
+    strategy = strat
 }
 
 function initialize(){
@@ -21,7 +32,7 @@ function initialize(){
 
 function authenticate(){
     return (req, res, next) => {
-        usersService.authenticate(req.query.username, req.query.password, (err, user) => {
+        strategy.authenticate(req, (err, user) => {
             if(err) return next(err)
             /**
              * 1. Gravar User num cookie 
