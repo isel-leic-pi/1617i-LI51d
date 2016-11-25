@@ -1,5 +1,7 @@
 'use strict';
 
+const usersService = require('./model/usersService.js')
+
 module.exports = {
     'initialize': initialize,
     'authenticate':authenticate
@@ -13,7 +15,9 @@ function initialize(){
 
 function authenticate(){
     return (req, res, next) => {
-        console.log(req.query.username + ' ' + req.query.password)
-        res.send('User autenticado: ' + req.query.username + ' ' + req.query.password);
+        usersService.authenticate(req.query.username, req.query.password, (err, user) => {
+            if(err) return next(err)
+            res.send(JSON.stringify(user))
+        })       
     }
 }
