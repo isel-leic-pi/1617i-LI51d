@@ -4,7 +4,6 @@ const fs = require('fs')
 const FootballService = require('./../model/footballService.js')
 const httpGetAsJson = require('./../httpGetAsJson.js')
 const footService = new FootballService(httpGetAsJson)
-const url = require('url')
 
 const handlebars = require('handlebars')
 handlebars.registerPartial(
@@ -15,12 +14,11 @@ const viewLeagueTable = handlebars.compile(fs.readFileSync('./views/leagueTable.
 const viewLeagues = handlebars.compile(fs.readFileSync('./views/leagues.hbs').toString())
 
 const handlers = function(req, resp, next){
-        const urlInfo = url.parse(req.url, true)
-        const parts = urlInfo.pathname.split('/')
+        const parts = req.path.split('/')
         const endPoint = parts[parts.length -1]
 
         if(!handlers.hasOwnProperty(endPoint)) return next()
-        handlers[endPoint](urlInfo.query, (err, content) => {
+        handlers[endPoint](req, (err, content) => {
             if(err) return next(err)
             resp.writeHead(200, { 'Content-Type': 'text/html' })
             resp.write(content)
@@ -28,20 +26,20 @@ const handlers = function(req, resp, next){
         })
 }
 
-handlers.leagueTable = function(query, cb) {
+handlers.leagueTable = function(req, cb) {
+    const query = req.query
     const id = query.id
     footService.getLeagueTable(id, (err, league) => {
         if(err) return cb(err)
-        league = addDummyTeams(league)
         cb(null, viewLeagueTable(league))
     })    
 }
 
-handlers.leagues = function(query, cb) {
+handlers.leagues = function(req, cb) {
+    const query = req.query
     footService.getLeagues((err, leagues) => {
         if(err) return cb(err)
         leagues = leaguesWithLinks(leagues)
-        leagues = addDummyTeams(leagues)
         cb(null, viewLeagues(leagues))
     })    
 }
@@ -51,16 +49,6 @@ function leaguesWithLinks(leagues) {
         item.leagueHref = "/leagueTable?id=" + item.id
         return item 
     })
-}
-
-function addDummyTeams(obj){
-    obj.user = {
-        teams: [ 
-            {name: "Premier League"},
-            {name: "Liga NOS"}  
-        ]
-    }
-    return obj
 }
 
 module.exports = handlers
