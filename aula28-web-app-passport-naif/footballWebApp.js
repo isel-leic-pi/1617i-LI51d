@@ -7,6 +7,7 @@ const footballController = require('./controller/footballController.js')
 const ecstatic = require('ecstatic')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
+const passport = require('./passport-naif.js')
 
 const server = connect() // Init pipeline
 /*
@@ -15,6 +16,7 @@ const server = connect() // Init pipeline
 server.use(favicon(__dirname + '/public/luma.ico'));
 server.use(ecstatic({root: __dirname + '/public' }));
 server.use(footballController)
+server.use('/login', passport.authenticate())
 server.use(bodyParser())
 
 server.use((err, req, resp, next) => {
