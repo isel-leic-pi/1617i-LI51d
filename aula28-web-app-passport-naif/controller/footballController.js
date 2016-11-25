@@ -31,6 +31,7 @@ handlers.leagueTable = function(req, cb) {
     const id = query.id
     footService.getLeagueTable(id, (err, league) => {
         if(err) return cb(err)
+        league.user = req.user
         cb(null, viewLeagueTable(league))
     })    
 }
@@ -40,6 +41,7 @@ handlers.leagues = function(req, cb) {
     footService.getLeagues((err, leagues) => {
         if(err) return cb(err)
         leagues = leaguesWithLinks(leagues)
+        leagues.user = req.user
         cb(null, viewLeagues(leagues))
     })    
 }
