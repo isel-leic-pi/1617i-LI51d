@@ -1,10 +1,10 @@
-"use strict";
+'use strict'
 
+const path = require('path');
 const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
 const footballController = require('./controllers/football.js')
-const ecstatic = require('ecstatic')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -32,9 +32,9 @@ passport.serializeUser((user, cb) => {
  */
 server.use(favicon(__dirname + '/public/luma.ico'));
 server.get('/', (req, res) => res.redirect('/leagues'))
-server.use(ecstatic({root: __dirname + '/public' }));
 server.use(cookieParser())
 server.use(bodyParser())
+server.use(connect.static(path.join(__dirname, 'public')));
 server.use(expressSession({ secret: 'space odity' }));
 server.use(passport.initialize())
 server.use(passport.session());
