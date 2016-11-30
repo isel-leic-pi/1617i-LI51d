@@ -40,7 +40,9 @@ server.use(expressSession({ secret: 'space odity' }));
 server.use(passport.initialize())
 server.use(passport.session());
 server.use(footballController)
-server.use('/login', passport.authenticate())
+server.post('/login', passport.authenticate(
+    'local', 
+    { successRedirect: '/'}))
 
 
 server.use((err, req, resp, next) => {
