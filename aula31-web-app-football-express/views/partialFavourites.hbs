@@ -1,4 +1,4 @@
-<div class="panel panel-default affix well">
+<div class="panel well">
     {{#if user}}
         <div class="panel-heading">
             <h4>{{user.fullname}}</h4>
@@ -12,18 +12,22 @@
             </ul>
         </div>
     {{else}}
-        <form action="/login" method="post">
-            <div>
-                <label>Username:</label>
-                <input type="text" name="username"/>
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" name="password"/>
-            </div>
-            <div>
-                <input type="submit" value="Log In"/>
-            </div>
+        <form action="/login" method="post" class="form-signin">
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input 
+                type="text"
+                id="inputUsername" 
+                class="form-control"
+                placeholder="Username"
+                name="username">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input 
+                type="password" 
+                id="inputPassword" 
+                class="form-control"
+                placeholder="Password"
+                name="password">
+            <button class="btn btn-sm btn-primary btn-block" type="submit">Sign in</button>
         </form>
     {{/if}}
 </div>
