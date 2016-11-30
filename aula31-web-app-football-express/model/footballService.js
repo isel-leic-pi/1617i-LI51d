@@ -24,6 +24,7 @@ function FootballService(httpGetAsJson) {
         const path = fotballUri
         httpGetAsJson(path, (err, arr) => {
             if(err) return cb(err)
+            if(arr.error) return cb(new Error("No leagues !!!! You probably reached your request limit. Get your free API token from http://api.football-data.org/!!! --------- Message from football-data.org:" + arr.error))
             cb(null, arr.map(item => new League(item)))
         })
     }
