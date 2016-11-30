@@ -8,7 +8,7 @@ const ecstatic = require('ecstatic')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const passport = require('./passport-naif.js')
+const passport = require('passport')
 const usersService = require('./model/usersService.js')
 
 const server = connect() // Init pipeline
