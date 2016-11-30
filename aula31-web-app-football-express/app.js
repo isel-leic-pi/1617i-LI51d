@@ -3,7 +3,7 @@
 /**
  * Import npm modules
  */
-const path = require('path');
+const path = require('path')
 const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
@@ -23,8 +23,8 @@ const usersService = require('./model/usersService.js')
  * View engine setup
  */
 const server = connect()
-server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'hbs');
+server.set('views', path.join(__dirname, 'views'))
+server.set('view engine', 'hbs')
 
 /**
  * Setup Passport
@@ -46,30 +46,39 @@ passport.serializeUser((user, cb) => {
 /*
  * Add Middlewares
  */
-server.use(favicon(__dirname + '/public/luma.ico'));
+server.use(favicon(__dirname + '/public/luma.ico'))
 server.get('/', (req, res) => res.redirect('/leagues'))
 server.use(cookieParser())
 server.use(bodyParser())
-server.use(connect.static(path.join(__dirname, 'public')));
-server.use(expressSession({ secret: 'space odity' }));
+server.use(connect.static(path.join(__dirname, 'public')))
+server.use(expressSession({ secret: 'space odity' }))
 server.use(passport.initialize())
-server.use(passport.session());
+server.use(passport.session())
 server.use(footballController)
 server.post('/login', passport.authenticate(
     'local', 
     { successRedirect: '/'}))
 
 
-server.use((err, req, resp, next) => {
-    resp.writeHead(500)
-    resp.write(err.message)
-    resp.end() // Termina a ligação
+/**
+ * catch 404 and forward to error handler
+ */ 
+server.use(function(req, res, next) {
+  var err = new Error('Not Found')
+  err.status = 404
+  next(err)
 })
 
-server.use((req, resp) => {
-    resp.writeHead(404)
-    resp.end() // Termina a ligação
+/**
+ * error handler prints stacktrace
+ */
+server.use(function(err, req, res, next) {
+    if(!err.status) err.status = 500
+    res.status(err.status)
+    res.render('error', {
+        message: err.message,
+        error: err
+    })
 })
-
 
 module.exports = server
