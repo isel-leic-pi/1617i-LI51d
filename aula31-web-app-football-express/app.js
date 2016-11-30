@@ -12,11 +12,13 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const passportStrategy = require('passport-local').Strategy
+const connectCtr = require('connect-controller')
 
 /**
  * Import local modules
  */
-const footballController = require('./controllers/football.js')
+const football = require('./controllers/football.js')
+const footballController = connectCtr(football)      // Auto binds football methods to routes
 const usersService = require('./model/usersService.js')
 
 /**

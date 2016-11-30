@@ -10,13 +10,7 @@ require('hbs').registerPartial(
     fs.readFileSync('./views/partialFavourites.hbs').toString()
 )
 
-const handlers = function(req, res, next){
-        const parts = req.path.split('/')
-        const endPoint = parts[parts.length -1]
-
-        if(!handlers.hasOwnProperty(endPoint)) return next()
-        handlers[endPoint](req, res, next)
-}
+const handlers = {}
 
 handlers.leagueTable = function(req, res, next) {
     const query = req.query
