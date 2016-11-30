@@ -1,10 +1,9 @@
 "use strict";
 
-const port = process.argv[2] | 3000
 const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
-const footballController = require('./controller/footballController.js')
+const footballController = require('./controllers/football.js')
 const ecstatic = require('ecstatic')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
@@ -55,8 +54,6 @@ server.use((req, resp) => {
     resp.writeHead(404)
     resp.end() // Termina a ligação
 })
-/*
- * Run server
- */
-server.listen(port)
-console.log('HTTP Server running on port ' + port)
+
+
+module.exports = server

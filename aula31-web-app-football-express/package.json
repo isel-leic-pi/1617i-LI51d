@@ -1,11 +1,11 @@
 {
   "name": "footballWebApp",
   "version": "1.0.0",
-  "description": "Time Web application",
-  "main": "footballWebApp.js",
+  "description": "Football Web App with information from api.football-data.org",
+  "main": "app.js",
   "scripts": {
-    "start": "node footballWebApp.js",
-    "test": "nodeunit tests\\testFootballService.js"
+    "start": "node ./bin/www",
+    "test": "nodeunit ./tests/testFootballService.js"
   },
   "author": "",
   "license": "ISC",
