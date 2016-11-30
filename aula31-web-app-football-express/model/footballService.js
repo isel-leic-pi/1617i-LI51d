@@ -12,6 +12,7 @@ function FootballService(httpGetAsJson) {
         httpGetAsJson(path, (err, obj) => {
             if(err) return cb(err)
             if(obj.error) return cb(new Error("There is no League with id = " + id))
+            if(!obj.standing) return cb(new Error("There is no Table for id = " + id))
             cb(null, new LeagueTable(id, obj))
         })
     }
