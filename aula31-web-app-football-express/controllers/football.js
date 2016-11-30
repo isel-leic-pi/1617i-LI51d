@@ -12,9 +12,7 @@ require('hbs').registerPartial(
 
 const handlers = {}
 
-handlers.leagueTable = function(req, res, next) {
-    const query = req.query
-    const id = query.id
+handlers.leagueTable = function(id, req, res, next) { // Auto parses id from query-string
     footService.getLeagueTable(id, (err, league) => {
         if(err) return next(err)
         league.user = req.user
