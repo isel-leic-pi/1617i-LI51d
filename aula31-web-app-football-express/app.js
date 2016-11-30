@@ -1,18 +1,34 @@
 'use strict'
 
+/**
+ * Import npm modules
+ */
 const path = require('path');
 const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
-const footballController = require('./controllers/football.js')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const passportStrategy = require('passport-local').Strategy
+
+/**
+ * Import local modules
+ */
+const footballController = require('./controllers/football.js')
 const usersService = require('./model/usersService.js')
 
-const server = connect() // Init pipeline
+/**
+ * View engine setup
+ */
+const server = connect()
+server.set('views', path.join(__dirname, 'views'));
+server.set('view engine', 'hbs');
+
+/**
+ * Setup Passport
+ */
 passport.use(new passportStrategy((username, password, cb) => {
         usersService.authenticate(
             username, 

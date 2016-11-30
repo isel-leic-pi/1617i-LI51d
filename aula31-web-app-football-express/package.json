@@ -15,6 +15,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "handlebars": "^4.0.5",
+    "hbs": "^4.0.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.3.2",
