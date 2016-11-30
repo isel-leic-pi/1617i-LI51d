@@ -1,0 +1,25 @@
+{
+  "name": "footballWebApp",
+  "version": "1.0.0",
+  "description": "Football Web App with information from api.football-data.org",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "nodeunit ./tests/testFootballService.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-controller": "^1.0.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "handlebars": "^4.0.5",
+    "hbs": "^4.0.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "^2.3.2",
+    "sprintf": "^0.1.5"
+  }
+}
