@@ -9,18 +9,17 @@ const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
+const passportStrategy = require('passport-local').Strategy
 const usersService = require('./model/usersService.js')
 
 const server = connect() // Init pipeline
-passport.use({
-    name: 'local',
-    authenticate: (req, cb) => {
+passport.use(new passportStrategy((username, password, cb) => {
         usersService.authenticate(
-            req.query.username, 
-            req.query.password,
-            cb)
-    }
-})
+            username, 
+            password,
+            cb
+        )
+}))
 passport.deserializeUser((userId, cb) => {
     usersService.find(userId, cb)
 })
