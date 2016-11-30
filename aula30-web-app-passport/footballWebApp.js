@@ -3,6 +3,7 @@
 const port = process.argv[2] | 3000
 const fs = require('fs')
 const connect = require('express')
+const expressSession = require('express-session')
 const footballController = require('./controller/footballController.js')
 const ecstatic = require('ecstatic')
 const favicon = require('serve-favicon')
@@ -35,7 +36,9 @@ server.get('/', (req, res) => res.redirect('/leagues'))
 server.use(ecstatic({root: __dirname + '/public' }));
 server.use(cookieParser())
 server.use(bodyParser())
+server.use(expressSession({ secret: 'space odity' }));
 server.use(passport.initialize())
+server.use(passport.session());
 server.use(footballController)
 server.use('/login', passport.authenticate())
 
