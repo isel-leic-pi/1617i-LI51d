@@ -3,11 +3,11 @@
 const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
-const footballController = require('./controller/footballController.js')
 const path = require('path')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const connectCtr = require('connect-controller')
 const passport = require('passport')
 const passportStrategy = require('passport-local').Strategy
 const usersService = require('./model/usersService.js')
@@ -47,7 +47,7 @@ server.use(bodyParser())
 server.use(expressSession({ secret: 'space odity' }));
 server.use(passport.initialize())
 server.use(passport.session());
-server.use(footballController)
+server.use(connectCtr())
 server.post('/login', passport.authenticate(
     'local', 
     { successRedirect: '/'}))
