@@ -12,9 +12,11 @@ hbs.registerPartial(
 )
 
 module.exports = {
-    'table': function (req, res, next) {
-        const query = req.query
-        const id = query.id
+    /**
+     * Route to /table/:id
+     */
+    'table_id': function (id, name, local, req, res, next) {
+        console.log(name + ' -- ' + local)
         footService.getLeagueTable(id, (err, league) => {
             if(err) return next(err)
             league.title = 'League Table'
@@ -23,7 +25,6 @@ module.exports = {
         })
     },    
     'leagues': function (req, res, next) {
-        const query = req.query
         footService.getLeagues((err, leagues) => {
             if(err) return next(err)
             leagues = leaguesWithLinks(leagues)
@@ -36,7 +37,7 @@ module.exports = {
 
 function leaguesWithLinks(leagues) {
     return leagues.map(item => {
-        item.leagueHref = "/football/table?id=" + item.id
+        item.leagueHref = "/football/table/" + item.id
         return item 
     })
 }
