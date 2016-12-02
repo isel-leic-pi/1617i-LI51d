@@ -18,7 +18,7 @@
             "name": "Launch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}\\footballWebApp.js",
+            "program": "${workspaceRoot}/bin/www",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
