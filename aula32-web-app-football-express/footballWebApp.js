@@ -4,7 +4,7 @@ const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
 const footballController = require('./controller/footballController.js')
-const ecstatic = require('ecstatic')
+const path = require('path')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -32,7 +32,7 @@ passport.serializeUser((user, cb) => {
  */
 server.use(favicon(__dirname + '/public/luma.ico'));
 server.get('/', (req, res) => res.redirect('/leagues'))
-server.use(ecstatic({root: __dirname + '/public' }));
+server.use(connect.static(path.join(__dirname, 'public')));
 server.use(cookieParser())
 server.use(bodyParser())
 server.use(expressSession({ secret: 'space odity' }));
