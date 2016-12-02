@@ -44,15 +44,23 @@ server.post('/login', passport.authenticate(
     { successRedirect: '/'}))
 
 
-server.use((err, req, resp, next) => {
-    resp.writeHead(500)
-    resp.write(err.message)
-    resp.end() // Termina a ligação
+/**
+ * Forwards to next Middleware with an Error
+ */
+server.use((req, res, next) => {
+    const err = new Error('Resource not found')
+    err.status = 404
+    next(err)
 })
 
-server.use((req, resp) => {
-    resp.writeHead(404)
-    resp.end() // Termina a ligação
+/**
+ * The last Middleware of express pipeline is the Error handler
+ */
+server.use((err, req, res, next) => {
+    if(!err.status) err.status = 500
+    res.status(err.status)
+    res.send(err.message)
 })
+
 
 module.exports = server
