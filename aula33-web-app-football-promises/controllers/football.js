@@ -15,25 +15,27 @@ module.exports = {
     /**
      * Route to /table/:id
      */
-    'table_id': function (id, name, local, req, res, next) {
+    'table_id': function (id, name, local, req) { // IF we return a Promise we cannot receive res
         console.log(name + ' -- ' + local)
-        footService.getLeagueTable(id)
+        return footService
+            .getLeagueTable(id)
             .then(league => {
                 league.title = 'League Table'
                 league.user = req.user
-                res.render('leagueTable', league) // status 200 + res.write(...) + res.end()
+                return league // connect-controller renders a View with name equals to this method 
             })
-            .catch(next)
     },    
-    'leagues': function (req, res, next) {
-        footService.getLeagues()
+    'leagues': function (req) { // IF we return a Promise we cannot receive res
+        return footService
+            .getLeagues()
             .then(leagues => {
-                leagues = leaguesWithLinks(leagues)
-                leagues.title = 'Leagues'
-                leagues.user = req.user
-                res.render('leagues', leagues) // status 200 + res.write(...) + res.end()
+                const ctx = {
+                    'title': 'Leagues',
+                    'user': req.user,
+                    'leagues': leaguesWithLinks(leagues)    
+                }
+                return ctx // connect-controller renders a View with name equals to this method
             })
-            .catch(next)
     }
 }
 
