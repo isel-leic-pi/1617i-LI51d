@@ -1,6 +1,5 @@
 "use strict";
 
-const port = process.argv[2] | 3000
 const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
@@ -55,8 +54,5 @@ server.use((req, resp) => {
     resp.writeHead(404)
     resp.end() // Termina a ligação
 })
-/*
- * Run server
- */
-server.listen(port)
-console.log('HTTP Server running on port ' + port)
+
+module.exports = server
