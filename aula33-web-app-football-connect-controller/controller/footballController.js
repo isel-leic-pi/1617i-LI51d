@@ -11,15 +11,14 @@ hbs.registerPartial(
     fs.readFileSync('./views/partialFavourites.hbs').toString()
 )
 
-const handlers = function(req, res, next){
-        const parts = req.path.split('/')
-        const endPoint = parts[parts.length -1]
 
-        if(!handlers.hasOwnProperty(endPoint)) return next()
-        handlers[endPoint](req, res, next)
-}
+const express = require('express')
+const router = express.Router()
 
-handlers.leagueTable = function(req, res, next) {
+router.get('/football/leagues', leagues)
+router.get('/football/leagueTable', leagueTable)
+
+function leagueTable(req, res, next) {
     const query = req.query
     const id = query.id
     footService.getLeagueTable(id, (err, league) => {
@@ -30,7 +29,7 @@ handlers.leagueTable = function(req, res, next) {
     })    
 }
 
-handlers.leagues = function(req, res, next) {
+function leagues(req, res, next) {
     const query = req.query
     footService.getLeagues((err, leagues) => {
         if(err) return next(err)
@@ -43,9 +42,9 @@ handlers.leagues = function(req, res, next) {
 
 function leaguesWithLinks(leagues) {
     return leagues.map(item => {
-        item.leagueHref = "/leagueTable?id=" + item.id
+        item.leagueHref = "/football/leagueTable?id=" + item.id
         return item 
     })
 }
 
-module.exports = handlers
+module.exports = router
