@@ -67,8 +67,11 @@ server.use((req, res, next) => {
  */
 server.use((err, req, res, next) => {
     if(!err.status) err.status = 500
-    res.status(err.status)
-    res.send(err.message)
+    res.render('error', {
+        title: 'Error',
+        message: err.message,
+        error: err
+    })
 })
 
 
