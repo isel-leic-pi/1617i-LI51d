@@ -3,7 +3,7 @@
 const fs = require('fs')
 const connect = require('express')
 const expressSession = require('express-session')
-const footballController = require('./controller/footballController.js')
+const footballController = require('./controllers/football.js')
 const path = require('path')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
@@ -40,7 +40,7 @@ passport.serializeUser((user, cb) => {
  * Add Middlewares
  */
 server.use(favicon(__dirname + '/public/luma.ico'));
-server.get('/', (req, res) => res.redirect('/leagues'))
+server.get('/', (req, res) => res.redirect('/football/leagues'))
 server.use(connect.static(path.join(__dirname, 'public')));
 server.use(cookieParser())
 server.use(bodyParser())
