@@ -13,6 +13,15 @@ const passportStrategy = require('passport-local').Strategy
 const usersService = require('./model/usersService.js')
 
 const server = connect() // Init pipeline
+/**
+ * view engine setup
+ */
+server.set('views', path.join(__dirname, 'views'));
+server.set('view engine', 'hbs');
+
+/**
+ * Passport setup
+ */
 passport.use(new passportStrategy((username, password, cb) => {
         usersService.authenticate(
             username, 

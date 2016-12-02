@@ -5,13 +5,11 @@ const FootballService = require('./../model/footballService.js')
 const httpGetAsJson = require('./../httpGetAsJson.js')
 const footService = new FootballService(httpGetAsJson)
 
-const handlebars = require('handlebars')
-handlebars.registerPartial(
+const hbs = require('hbs')
+hbs.registerPartial(
     'favourites', 
     fs.readFileSync('./views/partialFavourites.hbs').toString()
 )
-const viewLeagueTable = handlebars.compile(fs.readFileSync('./views/leagueTable.hbs').toString())
-const viewLeagues = handlebars.compile(fs.readFileSync('./views/leagues.hbs').toString())
 
 const handlers = function(req, res, next){
         const parts = req.path.split('/')
@@ -27,7 +25,7 @@ handlers.leagueTable = function(req, res, next) {
     footService.getLeagueTable(id, (err, league) => {
         if(err) return next(err)
         league.user = req.user
-        res.send(viewLeagueTable(league)) // status 200 + res.write(league) + res.end()
+        res.render('leagueTable', league) // status 200 + res.write(...) + res.end()
     })    
 }
 
@@ -37,7 +35,7 @@ handlers.leagues = function(req, res, next) {
         if(err) return next(err)
         leagues = leaguesWithLinks(leagues)
         leagues.user = req.user
-        res.send(viewLeagues(leagues)) // status 200 + res.write(league) + res.end()
+        res.render('leagues', leagues) // status 200 + res.write(...) + res.end()
     })    
 }
 
