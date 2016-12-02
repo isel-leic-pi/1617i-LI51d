@@ -2,8 +2,8 @@
 
 const fs = require('fs')
 const connect = require('express')
+const connectCtr = require('connect-controller')
 const expressSession = require('express-session')
-const footballController = require('./controllers/football.js')
 const path = require('path')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
@@ -47,7 +47,7 @@ server.use(bodyParser())
 server.use(expressSession({ secret: 'space odity' }));
 server.use(passport.initialize())
 server.use(passport.session());
-server.use(footballController)
+server.use(connectCtr())
 server.post('/login', passport.authenticate(
     'local', 
     { successRedirect: '/'}))
