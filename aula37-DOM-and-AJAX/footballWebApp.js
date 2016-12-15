@@ -67,7 +67,7 @@ server.use((req, res, next) => {
  * The last Middleware of express pipeline is the Error handler
  */
 server.use((err, req, res, next) => {
-    if(!err.status) err.status = 500
+    res.status(err.status || 500)
     res.render('error', {
         title: 'Error',
         message: err.message,
