@@ -35,6 +35,20 @@ module.exports = {
                 }
                 return ctx // connect-controller renders a View with name equals to this method
             })
+    },
+    'put_favourites_teamid': function(teamid, req) {
+        if(!req.user)
+            throw Error('User not authenticated')
+            
+        return footService
+            .getTeam(teamid)
+            .then(team => {
+                req.user.teams.push(team)
+                return {
+                    'name': team.name,
+                    'layout': false 
+                }
+            })
     }
 }
 
