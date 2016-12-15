@@ -15,8 +15,7 @@ module.exports = {
     /**
      * Route to /table/:id
      */
-    'table_id': function (id, name, local, req) { // IF we return a Promise we cannot receive res
-        console.log(name + ' -- ' + local)
+    'table_id': function (id, req) { // IF we return a Promise we cannot receive res
         return footService
             .getLeagueTable(id)
             .then(league => {
