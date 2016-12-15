@@ -1,14 +1,3 @@
-<script>
-
-    function addFavouriteHandler() {
-        const ul = document.getElementById('listFavourites')
-        const li = document.createElement('li')
-        li.setAttribute('class', 'list-group-item')
-        const team = document.createTextNode('Dummy Team')
-        li.appendChild(team)
-        ul.appendChild(li)
-    }    
-</script>
 <div class="panel panel-default affix well">
     {{#if user}}
         <div class="panel-heading">
@@ -22,9 +11,6 @@
                 {{/each}}
             </ul>
         </div>
-        <input type="text"/>
-        </br>
-        <button onclick="addFavouriteHandler()">Add</button>
     {{else}}
         <form action="/login" method="post">
             <div>
