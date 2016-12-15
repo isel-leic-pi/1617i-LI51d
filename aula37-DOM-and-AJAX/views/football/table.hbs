@@ -1,4 +1,10 @@
-﻿<div class="row">
+﻿
+{{#extend "scripts"}}
+    <script language="javascript" type="text/javascript" src="/assets/js/football/table.js">
+    </script>
+{{/extend}}
+
+<div class="row">
     <div class="col-xs-3">
         {{> favourites }}
     </div>
@@ -6,12 +12,15 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Position</th><th>Team Name</th><th>Points</th>
+                    <th>Position</th><th>Team Name</th><th>Points</th><th>Favourites</th>
                 </tr>
             </thead>
                 {{#each teams}}
                 <tr>
-                    <td>{{position}}</td><td>{{name}}</td><td>{{points}}</td>
+                    <td>{{position}}</td>
+                    <td>{{name}}</td>
+                    <td>{{points}}</td>
+                    <td ><input type="checkbox" onclick="checkFavouriteHandler(this, {{id}})"/></td>
                 </tr>
                 {{/each}}
             <tbody>

@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const passportStrategy = require('passport-local').Strategy
 const usersService = require('./model/usersService.js')
+require('./views/hbs-helpers')
 
 const server = connect() // Init pipeline
 /**
