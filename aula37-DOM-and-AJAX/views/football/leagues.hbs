@@ -1,0 +1,30 @@
+﻿<script>
+    let count = 0
+    function olaHandler() {
+        console.log('ola: ' + count++)
+    }
+</script>
+
+<div class="row">
+    <div class="col-xs-3">
+        {{> favourites }}
+    </div>
+    <div class="col-xs-9">
+        <button onclick='console.log("I am inside onclickHandler"); olaHandler();'>Ola</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Year</th><th>Caption</th>
+                </tr>
+            </thead>
+                {{#each leagues}}
+                <tr>
+                    <td>{{year}}</td>
+                    <td><a href='{{leagueHref}}'>{{caption}}</a></td>
+                </tr>
+                {{/each}}
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
