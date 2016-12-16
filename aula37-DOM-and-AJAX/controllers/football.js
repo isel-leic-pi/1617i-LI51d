@@ -40,23 +40,23 @@ module.exports = {
      * <=> router.put('/football/favourites/:teamid', (req, res, next) => {.... })
      * @param teamid Route parameter with if of selected team
      */
-    'put_favourites_teamid': function(teamid, req) {
+    'put_favourites_teamId': function(teamId, req) {
         if(!req.user) {
             const err = new Error('User not authenticated cannot update favorites!')
             err.status = 403
             throw err
         }
-        if(req.user.teams.filter(t => t.id == teamid).length != 0) {
+        if(req.user.teams.filter(t => t.id == teamId).length != 0) {
             const err = new Error('Team already exists in user favorites!')
             err.status = 403
             throw err
         }
         return footService
-            .getTeam(teamid)
+            .getTeam(teamId)
             .then(team => {
                 req.user.teams.push(team)
                 return {
-                    id: teamid,
+                    id: teamId,
                     name: team.name,
                     layout: false
                 };
