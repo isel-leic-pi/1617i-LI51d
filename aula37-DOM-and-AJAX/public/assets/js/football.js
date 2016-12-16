@@ -1,4 +1,4 @@
-function favouritesHandler(id){
+function favouritesHandler(id, checkFavourite){
     const listFavourites = document.getElementById('listFavourites')
     const path = "/football/favourites/" + id
     ajaxRequest('PUT', path)
@@ -27,7 +27,7 @@ function ajaxRequest(meth, path) {
                     resolve(xmlhttp.responseText)
                 }
                 else {
-                    reject(new Error('User not authenticated!'))
+                    reject(new Error(xmlhttp.statusText))
                 }
             }
         }    
