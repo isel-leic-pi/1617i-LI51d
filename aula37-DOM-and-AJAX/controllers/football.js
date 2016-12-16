@@ -15,8 +15,7 @@ module.exports = {
     /**
      * Route to /table/:id
      */
-    'table_id': function (id, name, local, req) { // IF we return a Promise we cannot receive res
-        console.log(name + ' -- ' + local)
+    'table_id': function (id,req) { // IF we return a Promise we cannot receive res
         return footService
             .getLeagueTable(id)
             .then(league => {
@@ -35,6 +34,32 @@ module.exports = {
                     'leagues': leaguesWithLinks(leagues)    
                 }
                 return ctx // connect-controller renders a View with name equals to this method
+            })
+    },
+    /**
+     * <=> router.put('/football/favourites/:teamid', (req, res, next) => {.... })
+     * @param teamid Route parameter with if of selected team
+     */
+    'put_favourites_teamid': function(teamid, req) {
+        if(!req.user) {
+            const err = new Error('User not authenticated cannot update favorites!')
+            err.status = 403
+            throw err
+        }
+        if(req.user.teams.filter(t => t.id == teamid).length != 0) {
+            const err = new Error('Team already exists in user favorites!')
+            err.status = 403
+            throw err
+        }
+        return footService
+            .getTeam(teamid)
+            .then(team => {
+                req.user.teams.push(team)
+                return {
+                    id: teamid,
+                    name: team.name,
+                    layout: false
+                };
             })
     }
 }
