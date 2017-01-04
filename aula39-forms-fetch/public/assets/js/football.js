@@ -2,10 +2,15 @@
 function addFavouriteHandler() {
     const txtUsername = document.getElementById('txtUsername')
     const txtPassword = document.getElementById('txtPassword')
-    const data = 'username=' + txtUsername.value + '&password=' + txtPassword.value
-    ajaxRequest('POST', '/login', data)
+    // const data = 'username=' + txtUsername.value + '&password=' + txtPassword.value
+    const data = {
+        'username': txtUsername.value,
+        'password': txtPassword.value
+    }
+    ajaxRequest('POST', '/login', JSON.stringify(data))
         .then(data => {
             alert('User autenticado!!!')
+            window.location.reload() // !!!!
         })
         .catch(err => {
             alert(err)
@@ -46,7 +51,7 @@ function ajaxRequest(meth, path, data) {
             }
         }    
         xmlhttp.open(meth, path,( true))
-        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xmlhttp.setRequestHeader('Content-Type', 'application/json')
         xmlhttp.send(data)
     })
     return promise
