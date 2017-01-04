@@ -12,18 +12,18 @@
             </ul>
         </div>
     {{else}}
-        <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
+        <div>
             <div>
                 <label>Username:</label>
-                <input type="text" name="username"/>
+                <input type="text" name="username" id="txtUsername"/>
             </div>
             <div>
                 <label>Password:</label>
-                <input type="password" name="password"/>
+                <input type="password" name="password" id="txtPassword"/>
             </div>
             <div>
-                <input type="submit" value="Log In"/>
+                <input type="submit" value="Log In" onclick="addFavouriteHandler()"/>
             </div>
-        </form>
+        </div>
     {{/if}}
 </div>

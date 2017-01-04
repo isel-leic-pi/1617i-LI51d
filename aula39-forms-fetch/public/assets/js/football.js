@@ -1,3 +1,17 @@
+
+function addFavouriteHandler() {
+    const txtUsername = document.getElementById('txtUsername')
+    const txtPassword = document.getElementById('txtPassword')
+    const data = 'username=' + txtUsername.value + '&password=' + txtPassword.value
+    ajaxRequest('POST', '/login', data)
+        .then(data => {
+            alert('User autenticado!!!')
+        })
+        .catch(err => {
+            alert(err)
+        })
+}
+
 function favouritesHandler(id, checkFavourite){
     const listFavourites = document.getElementById('listFavourites')
     const path = "/football/favourites/" + id
@@ -18,7 +32,7 @@ function stringToHtml(str) {
     return div.firstChild
 }
 
-function ajaxRequest(meth, path) {
+function ajaxRequest(meth, path, data) {
     const promise = new Promise((resolve, reject) => {
         const xmlhttp = new XMLHttpRequest()
         xmlhttp.onreadystatechange = function() {
@@ -31,8 +45,9 @@ function ajaxRequest(meth, path) {
                 }
             }
         }    
-        xmlhttp.open(meth, path, true)
-        xmlhttp.send()
+        xmlhttp.open(meth, path,( true))
+        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xmlhttp.send(data)
     })
     return promise
 }
