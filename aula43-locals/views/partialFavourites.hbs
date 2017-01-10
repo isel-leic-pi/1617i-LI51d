@@ -1,0 +1,29 @@
+<div class="panel panel-default affix well">
+    {{#if user}}
+        <div class="panel-heading">
+            <h4>{{user.fullname}}</h4>
+        </div>
+        <div class="panel">
+            <!-- List group -->
+            <ul class="list-group" id="listFavourites">
+                {{#each user.teams}}
+                    <li class="list-group-item">{{name}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    {{else}}
+        <div>
+            <div>
+                <label>Username:</label>
+                <input type="text" name="username" id="txtUsername"/>
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" name="password" id="txtPassword"/>
+            </div>
+            <div>
+                <input type="submit" value="Log In" onclick="addFavouriteHandler()"/>
+            </div>
+        </div>
+    {{/if}}
+</div>
