@@ -1,4 +1,4 @@
-<div class="panel panel-default affix well">
+<div class="panel panel-default affix well" id="panelFavourites">
     {{#if user}}
         {{> favouritesList}}
     {{else}}
@@ -12,7 +12,7 @@
                 <input type="password" name="password" id="txtPassword"/>
             </div>
             <div>
-                <input type="submit" value="Log In" onclick="addFavouriteHandler()"/>
+                <input type="submit" value="Log In" onclick="loginHandler()"/>
             </div>
         </div>
     {{/if}}

@@ -1,5 +1,5 @@
 
-function addFavouriteHandler() {
+function loginHandler() {
     const txtUsername = document.getElementById('txtUsername')
     const txtPassword = document.getElementById('txtPassword')
     // const data = 'username=' + txtUsername.value + '&password=' + txtPassword.value
@@ -8,13 +8,12 @@ function addFavouriteHandler() {
         'password': txtPassword.value
     }
     ajaxRequest('POST', '/login', JSON.stringify(data))
-        .then(data => {
-            alert('User autenticado!!!')
-            window.location.reload() // !!!!
-        })
-        .catch(err => {
-            alert(err)
-        })
+        .then(data => ajaxRequest('GET', '/partials/favouritesList'))
+        .then(favsList => document
+            .getElementById('panelFavourites')
+            .innerHTML = favsList
+        )
+        .catch(alert)
 }
 
 function favouritesHandler(id, checkFavourite){
@@ -38,21 +37,14 @@ function stringToHtml(str) {
 }
 
 function ajaxRequest(meth, path, data) {
-    const promise = new Promise((resolve, reject) => {
-        const xmlhttp = new XMLHttpRequest()
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
-                if (xmlhttp.status == 200) {
-                    resolve(xmlhttp.responseText)
-                }
-                else {
-                    reject(new Error(xmlhttp.statusText))
-                }
-            }
-        }    
-        xmlhttp.open(meth, path,( true))
-        xmlhttp.setRequestHeader('Content-Type', 'application/json')
-        xmlhttp.send(data)
+    return fetch(path, {
+        method: meth,
+        headers: {'Content-Type': 'application/json'},
+        body: data,
+        credentials: 'same-origin'
     })
-    return promise
+    .then(resp => {
+        if(resp.status != 200) throw new Error(resp.statusText)
+        return resp.text()
+    })
 }
