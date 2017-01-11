@@ -1,16 +1,6 @@
 <div class="panel panel-default affix well">
     {{#if user}}
-        <div class="panel-heading">
-            <h4>{{user.fullname}}</h4>
-        </div>
-        <div class="panel">
-            <!-- List group -->
-            <ul class="list-group" id="listFavourites">
-                {{#each user.teams}}
-                    <li class="list-group-item">{{name}}</li>
-                {{/each}}
-            </ul>
-        </div>
+        {{> favouritesList}}
     {{else}}
         <div>
             <div>

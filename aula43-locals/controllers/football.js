@@ -5,12 +5,6 @@ const FootballService = require('./../model/footballService.js')
 const httpGetAsJson = require('./../httpGetAsJson.js')
 const footService = new FootballService(httpGetAsJson)
 
-const hbs = require('hbs')
-hbs.registerPartial(
-    'favourites', 
-    fs.readFileSync('./views/partialFavourites.hbs').toString()
-)
-
 module.exports = {
     /**
      * Route to /table/:id

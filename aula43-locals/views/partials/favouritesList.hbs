@@ -1,0 +1,11 @@
+<div class="panel-heading">
+    <h4>{{user.fullname}}</h4>
+</div>
+<div class="panel">
+    <!-- List group -->
+    <ul class="list-group" id="listFavourites">
+        {{#each user.teams}}
+            <li class="list-group-item">{{name}}</li>
+        {{/each}}
+    </ul>
+</div>

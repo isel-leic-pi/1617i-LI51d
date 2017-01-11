@@ -16,8 +16,10 @@ const server = connect() // Init pipeline
 /**
  * view engine setup
  */
+const hbs = require('hbs')
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials')
 
 /**
  * Passport setup
@@ -48,9 +50,11 @@ server.use(expressSession({ secret: 'space odity' }));
 server.use(passport.initialize())
 server.use(passport.session());
 server.use(connectCtr())
-server.post('/login', passport.authenticate(
-    'local', 
-    { successRedirect: '/'}))
+server.post('/login', 
+    passport.authenticate('local'),
+    (req, res, next) => {
+        res.sendStatus(200)
+    })
 
 
 /**
